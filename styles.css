@@ -1,0 +1,103 @@
+/* Reset and Base Styling */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+.logo {
+    color:white;
+}
+.align {
+    text-align: center;  
+}
+
+.font12 {
+    font-size: 40px;
+}
+.font123 {
+    font-size: 50px;
+}
+.weight {
+    font-weight:bolder;
+    text-align: center;
+    font-size: 50px;
+}
+.weight33 {
+    
+    text-align: center;
+    font-size: 20px;
+}
+.weight32 {
+    
+    text-align: left;
+    font-size: 20px;
+}
+.image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    height: 60%;
+} 
+.header {
+    background: #1e293b;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: crimson;
+}
+
+.hero {
+    background: linear-gradient(45deg, #6d83f2, #f5a623);
+    text-align: center;
+    color: white;
+    padding: 100px 20px;
+}
+
+.hero h1 .highlight {
+    color: crimson;
+}
+
+.btn {
+    background: crimson;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 30px;
+}
+
+.btn:hover {
+    background: #333;
+}
+
+footer {
+    background: #1e293b;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+}
