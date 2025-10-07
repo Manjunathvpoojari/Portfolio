@@ -134,37 +134,37 @@
              background-position: center; 
              background-attachment: scroll;
              /* APPLIED DYNAMIC BACKGROUND ANIMATION */
-             animation: background-pan 60s linear infinite alternate;">
+             animation: background-pan 50s linear infinite alternate;">
              
-    <div class="min-h-screen font-inter text-gray-800 p-4 sm:p-6 lg:p-8">
-         <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-custom-gradient flex items-center justify-center mx-auto mb-4 shadow-lg overflow-hidden profile-float">
-                <img src="Works/mvp2.jpg" alt="Manjunath V Poojari Profile" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/160x160/6366F1/FFFFFF?text=MN';" />
-            </div>
+    <div class="fixed top-0 right-0 z-50 p-4 sm:p-6 lg:p-8">
+        <button id="menu-toggle" class="bg-indigo-600 hover:bg-indigo-700 p-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110">
+            <svg data-lucide="menu" class="w-6 h-6 text-white"></svg>
+        </button>
 
-         <main class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-6 sm:p-8 lg:p-10 mb-8 border border-indigo-200">
-        <header class="max-w-4xl mx-auto text-center py-10 sm:py-12 lg:py-16 animate-fade-in section-float-subtle">
-            <section id="Intro" class="mb-10 animate-fade-in-up stagger-3 section-float-subtle">
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-2 gradient-text">Manjunath V Poojari</h1>
-            <p class="text-lg sm:text-xl text-purple-600 font-medium animate-fade-in-up stagger-2 ">Aspiring Software Engineer | Data Science & AI/ML Enthusiast</p>
-            </section>
-            
+        <div id="vertical-menu" class="hidden absolute top-16 right-0 bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-2xl p-4 mt-2 border border-gray-700 min-w-[180px]">
+            <a href="#about" onclick="document.getElementById('vertical-menu').classList.add('hidden')" class="block text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors duration-200">About</a>
+            <a href="#skills" onclick="document.getElementById('vertical-menu').classList.add('hidden')" class="block text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors duration-200">Skills</a>
+            <a href="#connect" onclick="document.getElementById('vertical-menu').classList.add('hidden')" class="block text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors duration-200">Connect</a>
+            <a href="#certificates" onclick="document.getElementById('vertical-menu').classList.add('hidden')" class="block text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors duration-200">Certificates</a>
+            <a href="#hackathons" onclick="document.getElementById('vertical-menu').classList.add('hidden')" class="block text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors duration-200">Hackathons</a>
+            <a href="#internships" onclick="document.getElementById('vertical-menu').classList.add('hidden')" class="block text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors duration-200">Internships</a>
+            <a href="#projects" onclick="document.getElementById('vertical-menu').classList.add('hidden')" class="block text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors duration-200">Projects</a>
+            <a href="#feedback" onclick="document.getElementById('vertical-menu').classList.add('hidden')" class="block text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-indigo-600 transition-colors duration-200">Reach Out</a>
+        </div>
+    </div>
+    <div class="min-h-screen font-inter text-gray-800 p-4 sm:p-6 lg:p-8">
+       
+        <header class="max-w-5xl mx-auto text-center py-10 sm:py-12 lg:py-16 animate-fade-in section-float-subtle">
+             <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-custom-gradient flex items-center justify-center mx-auto mb-4 shadow-lg overflow-hidden profile-float">
+            <img src="Works/mvp2.jpg" alt="Manjunath V Poojari Profile" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/160x160/6366F1/FFFFFF?text=MN';" />
+             </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-2 gradient-text text-center">Manjunath V Poojari</h1> 
+            <p class="text-lg sm:text-xl text-green-600 font-bold animate-fade-in-up stagger-2 gradient-text">🎓 Aspiring Software Engineer | Data Science & AI/ML Enthusiast</p>  
         </header>
-             <!-- <main class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-6 sm:p-8 lg:p-10 mb-8 border border-indigo-200"> -->
+        <main class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-6 sm:p-8 lg:p-10 mb-8 border border-indigo-200">
             <section id="about" class="mb-10 animate-fade-in-up stagger-3 section-float-subtle">
                 <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-4 pb-2 border-b-2 border-indigo-300">About Me</h2>
                 <p class="text-base sm:text-lg leading-relaxed text-gray-700">Passionate and driven Software Engineer with a strong foundation in data structures and algorithms, coupled with a keen interest in Data Science, Artificial Intelligence, and Machine Learning. Eager to contribute to innovative projects and continuously learn new technologies. Committed to clean code and problem-solving.</p>
-            </section>
-            
-            <section id="connect" class="mb-10 text-center animate-fade-in-up stagger-4 section-float-subtle">
-                <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-6 pb-2 border-b-2 border-indigo-300">Connect & Achieve</h2>
-                <div class="flex flex-wrap justify-center gap-6 sm:gap-8">
-                    <a href="https://github.com/Manjunathvpoojari" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="GitHub Profile"><i data-lucide="github" class="w-10 h-10 text-gray-700 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">GitHub</span></a>
-                    <a href="https://www.linkedin.com/in/manjunath-v-poojari" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="LinkedIn Profile"><i data-lucide="linkedin" class="w-10 h-10 text-blue-700 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">LinkedIn</span></a>
-                    <a href="https://drive.google.com/drive/folders/1iLNrVNit8Y-XCuk2Fgp436mI6co6Tbrl?usp=sharing" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="Certifications"><i data-lucide="award" class="w-10 h-10 text-yellow-600 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">Certifications</span></a>
-                    <a href="https://leetcode.com/u/eJfMan7Ghv/" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="LeetCode Profile"><i data-lucide="code" class="w-10 h-10 text-green-700 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">LeetCode</span></a>
-                    <a href="mailto:mm4211051@gmail.com" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="Email Me"><i data-lucide="mail" class="w-10 h-10 text-red-500 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">Email</span></a>
-                    <a href="Works/Resume_updated.pdf" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="View Resume"><i data-lucide="file-text" class="w-10 h-10 text-purple-600 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">Resume</span></a>
-                </div>
             </section>
             
             <section id="skills" class="mb-10 animate-fade-in-up stagger-5 section-float-subtle">
@@ -192,16 +192,28 @@
                     <span onclick="handleSkillSearch('Power BI')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="bar-chart-2" class="w-4 h-4"></i><span>Power BI</span></span>
                     <span onclick="handleSkillSearch('Streamlit')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="columns" class="w-4 h-4"></i><span>Streamlit</span></span>
                     <span onclick="handleSkillSearch('NLP')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="brain-cog" class="w-4 h-4"></i><span>NLP</span></span>
-                     <span onclick="handleSkillSearch('MySQL')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="database backup" class="w-4 h-4"></i><span>MySQL</span></span>
-                      <span onclick="handleSkillSearch('BigData')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="library-big" class="w-4 h-4"></i><span>Big Data</span></span>
-                       <span onclick="handleSkillSearch('Communication')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="megaphone" class="w-4 h-4"></i><span>Communication</span></span>
-                        <span onclick="handleSkillSearch('Business Acumen')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="split" class="w-4 h-4"></i><span>Business Acumen</span></span>
-                         <span onclick="handleSkillSearch('Team management')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="handshake" class="w-4 h-4"></i><span>Team Management</span></span>
-                         <span onclick="handleSkillSearch('Devops')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="workflow" class="w-4 h-4"></i><span>Devops</span></span>
-                         <span onclick="handleSkillSearch('Prompt Engineering')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="message-square-text" class="w-4 h-4"></i><span>Prompt Engineering</span></span>
+                    <span onclick="handleSkillSearch('MySQL')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="database backup" class="w-4 h-4"></i><span>MySQL</span></span>
+                    <span onclick="handleSkillSearch('BigData')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="library-big" class="w-4 h-4"></i><span>Big Data</span></span>
+                    <span onclick="handleSkillSearch('Communication')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="megaphone" class="w-4 h-4"></i><span>Communication</span></span>
+                    <span onclick="handleSkillSearch('Business Acumen')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="split" class="w-4 h-4"></i><span>Business Acumen</span></span>
+                    <span onclick="handleSkillSearch('Team management')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="handshake" class="w-4 h-4"></i><span>Team Management</span></span>
+                    <span onclick="handleSkillSearch('Devops')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="workflow" class="w-4 h-4"></i><span>Devops</span></span>
+                    <span onclick="handleSkillSearch('Prompt Engineering')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="message-square-text" class="w-4 h-4"></i><span>Prompt Engineering</span></span>
                     <a href="https://www.google.com/search?q=Git" target="_blank" rel="noopener noreferrer" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i class="fab fa-git-alt text-xl"></i><span>Git</span></a>
                     <span onclick="handleSkillSearch('Version Control')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="git-branch" class="w-4 h-4"></i><span>Version Control</span></span>
                     <span onclick="handleSkillSearch('Cloud Computing')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="cloud" class="w-4 h-4"></i><span>Cloud Computing</span></span>
+                </div>
+            </section>
+            
+            <section id="connect" class="mb-10 text-center animate-fade-in-up stagger-4 section-float-subtle">
+                <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-6 pb-2 border-b-2 border-indigo-300">Connect & Achieve</h2>
+                <div class="flex flex-wrap justify-center gap-6 sm:gap-8">
+                    <a href="https://github.com/Manjunathvpoojari" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="GitHub Profile"><i data-lucide="github" class="w-10 h-10 text-gray-700 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">GitHub</span></a>
+                    <a href="https://www.linkedin.com/in/manjunath-v-poojari" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="LinkedIn Profile"><i data-lucide="linkedin" class="w-10 h-10 text-blue-700 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">LinkedIn</span></a>
+                    <a href="https://drive.google.com/drive/folders/1iLNrVNit8Y-XCuk2Fgp436mI6co6Tbrl?usp=sharing" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="Certifications"><i data-lucide="award" class="w-10 h-10 text-yellow-600 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">Certifications</span></a>
+                    <a href="https://leetcode.com/u/eJfMan7Ghv/" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="LeetCode Profile"><i data-lucide="code" class="w-10 h-10 text-green-700 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">LeetCode</span></a>
+                    <a href="mailto:mm4211051@gmail.com" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="Email Me"><i data-lucide="mail" class="w-10 h-10 text-red-500 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">Email</span></a>
+                    <a href="Works/Resume_updated.pdf" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="View Resume"><i data-lucide="file-text" class="w-10 h-10 text-purple-600 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">Resume</span></a>
                 </div>
             </section>
             
@@ -245,7 +257,7 @@
             
             <section id="certificates" class="mb-10 animate-fade-in-up stagger-7 section-float-subtle">
                 <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-4 pb-2 border-b-2 border-indigo-300">Certificates</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 md:grid-cols-3 gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <a href="https://drive.google.com/file/d/1_cqjaeTNwpAGvrNPNHlpjhjredJdd-q4/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-indigo-50 p-4 rounded-lg shadow-sm border border-indigo-200 hover:bg-indigo-100">
                         <h3 class="font-semibold text-indigo-800 mb-1">AWS Cloud Assessment</h3>
                         <p class="text-sm text-gray-600 mb-2">Issued by [LearnTube.ai], completed in [08/2025].</p>
@@ -282,7 +294,7 @@
                         </div>
                     </a>
 
-                     <a href="https://drive.google.com/file/d/1iyM8muwkJHKeNxnGO3snLqYInWvzyd5U/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-indigo-50 p-4 rounded-lg shadow-sm border border-indigo-200 hover:bg-indigo-100">
+                    <a href="https://drive.google.com/file/d/1iyM8muwkJHKeNxnGO3snLqYInWvzyd5U/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-indigo-50 p-4 rounded-lg shadow-sm border border-indigo-200 hover:bg-indigo-100">
                         <h3 class="font-semibold text-indigo-800 mb-1">NXT wave Workshop</h3>
                         <p class="text-sm text-gray-600 mb-2">Issued by [NXT wave], completed in [02/2025].</p>
                         <div class="image-frame p-2">
@@ -294,10 +306,10 @@
 
             <section id="hackathons" class="mb-10 animate-fade-in-up stagger-8 section-float-subtle">
                 <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-4 pb-2 border-b-2 border-indigo-300">Hackathons</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <a href="https://drive.google.com/file/d/1BbbO6Z4KB3ypBDri22Kqjd7Y5j27hcSG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-purple-50 p-4 rounded-lg shadow-sm border border-purple-200 hover:bg-purple-100">
                         <h3 class="font-semibold text-purple-800 mb-1">Ctrl+Alt+Compete-- RV College Bangalore</h3>
-                        <p class="text-sm text-gray-600 mb-2">An Hackathon event under IEEE Bangalore subsection  on [06/2025].</p>
+                        <p class="text-sm text-gray-600 mb-2">An Hackathon event under IEEE Bangalore subsection on [06/2025].</p>
                         <div class="image-frame p-2">
                             <img src="Works/hackothan.png" alt="Hackathon Certificate 1" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 3: Paste image URL here.</p>';"/>
                         </div>
@@ -328,7 +340,7 @@
 
             <section id="internships" class="mb-10 animate-fade-in-up stagger-9 section-float-subtle">
                 <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-4 pb-2 border-b-2 border-indigo-300">Internships</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <a href="https://drive.google.com/file/d/1XYLYbTAa4v878eS3_8gEYL0qn35swqcI/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-yellow-50 p-4 rounded-lg shadow-sm border border-yellow-200 hover:bg-yellow-100">
                         <h3 class="font-semibold text-yellow-800 mb-1">Java Programming / Codsoft</h3>
                         <p class="text-sm text-gray-600 mb-2">Student Intern at Virtual Java Internship.</p>
@@ -364,14 +376,14 @@
                             <img src="Works/codex_frontendIntern.png" alt="Internship Certificate 5" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 6: Paste image URL here.</p>';"/>
                         </div>
                     </a>
-                     <a href="https://drive.google.com/file/d/1vLvuII2fI68PlIovC0CmTRGmfvrwmRJW/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-yellow-50 p-4 rounded-lg shadow-sm border border-yellow-200 hover:bg-yellow-100">
+                    <a href="https://drive.google.com/file/d/1vLvuII2fI68PlIovC0CmTRGmfvrwmRJW/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-yellow-50 p-4 rounded-lg shadow-sm border border-yellow-200 hover:bg-yellow-100">
                         <h3 class="font-semibold text-yellow-800 mb-1">Web Development / Octanet</h3>
                         <p class="text-sm text-gray-600 mb-2">Student Intern at Virtual web-development at TechOctanet Service Pvt Ltd.</p>
                         <div class="image-frame p-2">
                             <img src="Works/OctaNet.png" alt="Internship Certificate 5" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 6: Paste image URL here.</p>';"/>
                         </div>
                     </a>
-                     <a href="https://drive.google.com/file/d/1QTrGgTBHXLnzPZYgXNCoiow4GumVEKzN/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-yellow-50 p-4 rounded-lg shadow-sm border border-yellow-200 hover:bg-yellow-100">
+                    <a href="https://drive.google.com/file/d/1QTrGgTBHXLnzPZYgXNCoiow4GumVEKzN/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-yellow-50 p-4 rounded-lg shadow-sm border border-yellow-200 hover:bg-yellow-100">
                         <h3 class="font-semibold text-yellow-800 mb-1">Data Visualization / Forage TATA</h3>
                         <p class="text-sm text-gray-600 mb-2">Data Visualization intern : Empowering Business with Effective Insights.</p>
                         <div class="image-frame p-2">
@@ -415,7 +427,7 @@
                         <a href="https://github.com/Manjunathvpoojari/YouTube-Summary-Creation" target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Project</a>
                     </div>
 
-                     <div class="project-card bg-white p-6 rounded-lg shadow-md border border-gray-200 animate-slide-in-right stagger-4" data-skills="streamlit,google-api,nlp,python">
+                    <div class="project-card bg-white p-6 rounded-lg shadow-md border border-gray-200 animate-slide-in-right stagger-4" data-skills="streamlit,google-api,nlp,python">
                         <h3 class="font-bold text-xl text-indigo-800 mb-2">🩺DualVision AI - A unified Medical Image Segmentation System using MONAI</h3>
                         <p class="text-gray-700 mb-3">This project was developed as part of a Hackathon Challenge focused on medical image segmentation using deep learning.The objective was to preprocess, train, and deploy segmentation models for two medical imaging datasets — BRATS 2020 (Brain Tumor Segmentation) and DRIVE (Retinal Vessel Segmentation) — while demonstrating innovation and optimization under time constraints..</p>
                         <div class="flex flex-wrap gap-2 mb-4"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Colab & Kaggle</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">MONAI</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Streamlit</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Gradio</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Data Visualize</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Data Science</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Machine learning</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">UNet++</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">AttentionUNet</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">DeepLabV3</span></div>
@@ -426,14 +438,15 @@
                         <h3 class="font-bold text-xl text-indigo-800 mb-2">📁Internship Task works </h3>
                         <p class="text-gray-700 mb-3">My journey towards working on Internship tasks from Codsoft (Guessing game, Student grade Calculation, ATM flow, Currency Converter, Student Management System.) to the Elevate(AIML- worked on Titanic, Housing Price, Breast Cancer, Heart Disease, Customer Segmentationm and Mall Customers dataset from Kaggle) and further all encouraged me to be more productive to my work life along with academics</p>
                         <div class="flex flex-wrap gap-2 mb-4"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Codex</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Codsoft</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Elevate(AIML)</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Elevate(web-development)</span></div>
-                       <div class="flex flex-col space-y-3">
-                 <div class="flex flex-col space-y-2"> <a href="https://github.com/Manjunathvpoojari/Elevate_AIML.git" target="_blank" rel="noopener noreferrer" class="block w-max bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Elevate_AIML</a>
-    
-                        <a href="https://github.com/Manjunathvpoojari/Elevate_Web.git" target="_blank" rel="noopener noreferrer" class="block w-max bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Elevate_Web</a>
-    
-                         <a href="https://github.com/Manjunathvpoojari/Codsoft.git" target="_blank" rel="noopener noreferrer" class="block w-max bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Codsoft</a>
-                 </div>
-                </div>
+                        <div class="flex flex-col space-y-3">
+                            <div class="flex flex-col space-y-2"> 
+                                <a href="https://github.com/Manjunathvpoojari/Elevate_AIML.git" target="_blank" rel="noopener noreferrer" class="block w-max bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Elevate_AIML</a>
+                            
+                                <a href="https://github.com/Manjunathvpoojari/Elevate_Web.git" target="_blank" rel="noopener noreferrer" class="block w-max bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Elevate_Web</a>
+                            
+                                <a href="https://github.com/Manjunathvpoojari/Codsoft.git" target="_blank" rel="noopener noreferrer" class="block w-max bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Codsoft</a>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -444,7 +457,7 @@
                         <a href="https://github.com/Manjunathvpoojari/Melanoma-Skin-cancer-Detection-using-DeepLearning-.git" target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Status</a>
                     </div>
 
-                     <div class="project-card bg-white p-6 rounded-lg shadow-md border border-gray-200 animate-slide-in-right stagger-4" data-skills="streamlit,google-api,nlp,python">
+                    <div class="project-card bg-white p-6 rounded-lg shadow-md border border-gray-200 animate-slide-in-right stagger-4" data-skills="streamlit,google-api,nlp,python">
                         <h3 class="font-bold text-xl text-indigo-800 mb-2">💸Loan Marga- tracking loan and building trust </h3>
                         <p class="text-gray-700 mb-3">LoanMarga! <b>(SIH Project)</b> This project is not a typical loan prediction system, but rather a robust Loan Utilization Tracking and Fraud Detection system building for the National level hackathon.. <b>(Currently working on it)</b>.</p>
                         <div class="flex flex-wrap gap-2 mb-4"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Machine Learning</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Deep Learning</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Convolution Neural Network</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">EfficientNetLite</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Android App</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Image Processing</span></div>
@@ -470,6 +483,11 @@
     <script>
         lucide.createIcons();
         function handleSkillSearch(s){window.open('https://www.google.com/search?q='+encodeURIComponent(s),'_blank');}
+        
+        // NEW: Hamburger Menu Toggle Logic
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('vertical-menu').classList.toggle('hidden');
+        });
         
         // Intersection Observer Logic for Fade-In Animations
         document.addEventListener('DOMContentLoaded',function(){

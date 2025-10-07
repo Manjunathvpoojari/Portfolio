@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manjunath V Poojari - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        .object-cover { object-fit: cover; }
+        .bg-custom-gradient { background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        
+        /* Entrance Animations (Used by Staggered Elements) */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        
+        /* Continuous/Hover Animations */
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } } 
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } } /* Vertical movement (for profile pic) */
+        @keyframes marquee { 0% { transform: translateX(0); } 50% { transform: translateX(60px); } 100% { transform: translateX(0); } } /* Horizontal movement (WIDE SWEEP) */
+        @keyframes gradient-shift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* NEW: Dynamic Background Keyframes */
+        @keyframes background-pan {
+            0% {
+                background-position: 0% 0%;
+                background-size: 100%;
+            }
+            50% {
+                background-position: 5% 5%;
+                background-size: 105%; /* Zoom in slightly */
+            }
+            100% {
+                background-position: 0% 0%;
+                background-size: 100%;
+            }
+        }
+
+        /* Animation Classes */
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+        .animate-slide-in-left { animation: slideInLeft 0.8s ease-out forwards; }
+        .animate-slide-in-right { animation: slideInRight 0.8s ease-out forwards; }
+        .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+        .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+        .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+        .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+        .stagger-5 { animation-delay: 0.5s; opacity: 0; }
+        .stagger-6 { animation-delay: 0.6s; opacity: 0; }
+        .stagger-7 { animation-delay: 0.7s; opacity: 0; }
+        .stagger-8 { animation-delay: 0.8s; opacity: 0; }
+        .stagger-9 { animation-delay: 0.9s; opacity: 0; }
+        .stagger-10 { animation-delay: 1.0s; opacity: 0; }
+        
+        /* Custom Dynamic Classes */
+        .profile-float { animation: float 3s ease-in-out infinite; } 
+        /* Name: Horizontal movement + Gradient shift */
+        .gradient-text { 
+            background: linear-gradient(90deg, #667eea, #764ba2, #667eea); 
+            background-size: 200% 200%; 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text; 
+            animation: gradient-shift 3s ease infinite, marquee 6s ease-in-out infinite alternate; 
+        }
+        
+        .section-float-subtle:hover { animation: pulse 1s ease-in-out infinite alternate; } 
+        .project-card:hover { animation: pulse 0.6s ease-in-out; transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3); } 
+
+        /* Existing Styles (kept for consistency) */
+        .project-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+        .project-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent); transition: left 0.5s; }
+        .project-card:hover::before { left: 100%; }
+        .skill-tag { transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .skill-tag::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #667eea, #764ba2); transition: width 0.3s ease; }
+        .skill-tag:hover::after { width: 100%; }
+        .skill-tag:hover { transform: translateY(-2px); }
+        .icon-link { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .icon-link:hover { animation: pulse 0.6s ease-in-out; }
+        
+        /* Style for the image frame placeholders - NOW CLICKABLE AND DYNAMIC */
+        .image-frame {
+            min-height: 200px;
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            background-color: #f9fafb;
+            color: #9ca3af;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .image-frame img { max-height: 150px; }
+
+        /* Style for the clickable leadership card */
+        .leadership-card-link {
+            display: block; 
+            text-decoration: none; 
+            color: inherit; 
+            transition: all 0.3s ease;
+        }
+        /* Applied dynamic lift effect to the internal div for Leadership cards */
+        .leadership-card-link:hover > div {
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+            background-color: #d1fae5; 
+        }
+
+        /* Style for clickable certificate cards */
+        .cert-card-link {
+            display: block; 
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .cert-card-link:hover {
+             transform: translateY(-3px); 
+             box-shadow: 0 8px 15px rgba(126, 34, 206, 0.2);
+        }
+        
+    </style>
+</head>
+<body style="background-image: url('Works/Corporate\ life.png'); 
+             background-size: cover; 
+             background-position: center; 
+             background-attachment: scroll;
+             /* APPLIED DYNAMIC BACKGROUND ANIMATION */
+             animation: background-pan 50s linear infinite alternate;">
+             
+    <div class="min-h-screen font-inter text-gray-800 p-4 sm:p-6 lg:p-8">
+         <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-custom-gradient flex items-center justify-center mx-auto mb-4 shadow-lg overflow-hidden profile-float">
+                <img src="Works/mvp2.jpg" alt="Manjunath V Poojari Profile" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/160x160/6366F1/FFFFFF?text=MN';" />
+            </div>
+           <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-2 gradient-text text-center">Manjunath V Poojari</h1>
+         
+        <header class="max-w-5xl mx-auto text-center py-10 sm:py-12 lg:py-16 animate-fade-in section-float-subtle">
+            <p class="text-lg sm:text-xl text-green-600 font-bold animate-fade-in-up stagger-2 gradient-text">🎓 Aspiring Software Engineer | Data Science & AI/ML Enthusiast</p>  
+        </header>
+        <main class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-6 sm:p-8 lg:p-10 mb-8 border border-indigo-200">
+            <section id="about" class="mb-10 animate-fade-in-up stagger-3 section-float-subtle">
+                <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-4 pb-2 border-b-2 border-indigo-300">About Me</h2>
+                <p class="text-base sm:text-lg leading-relaxed text-gray-700">Passionate and driven Software Engineer with a strong foundation in data structures and algorithms, coupled with a keen interest in Data Science, Artificial Intelligence, and Machine Learning. Eager to contribute to innovative projects and continuously learn new technologies. Committed to clean code and problem-solving.</p>
+            </section>
+            
+            <section id="connect" class="mb-10 text-center animate-fade-in-up stagger-4 section-float-subtle">
+                <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-6 pb-2 border-b-2 border-indigo-300">Connect & Achieve</h2>
+                <div class="flex flex-wrap justify-center gap-6 sm:gap-8">
+                    <a href="https://github.com/Manjunathvpoojari" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="GitHub Profile"><i data-lucide="github" class="w-10 h-10 text-gray-700 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">GitHub</span></a>
+                    <a href="https://www.linkedin.com/in/manjunath-v-poojari" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="LinkedIn Profile"><i data-lucide="linkedin" class="w-10 h-10 text-blue-700 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">LinkedIn</span></a>
+                    <a href="https://drive.google.com/drive/folders/1iLNrVNit8Y-XCuk2Fgp436mI6co6Tbrl?usp=sharing" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="Certifications"><i data-lucide="award" class="w-10 h-10 text-yellow-600 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">Certifications</span></a>
+                    <a href="https://leetcode.com/u/eJfMan7Ghv/" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="LeetCode Profile"><i data-lucide="code" class="w-10 h-10 text-green-700 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">LeetCode</span></a>
+                    <a href="mailto:mm4211051@gmail.com" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="Email Me"><i data-lucide="mail" class="w-10 h-10 text-red-500 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">Email</span></a>
+                    <a href="Works/Resume_updated.pdf" target="_blank" rel="noopener noreferrer" class="icon-link flex flex-col items-center p-4 rounded-xl bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 group" title="View Resume"><i data-lucide="file-text" class="w-10 h-10 text-purple-600 group-hover:text-indigo-600 mb-2"></i><span class="text-sm font-semibold text-gray-700 group-hover:text-indigo-600">Resume</span></a>
+                </div>
+            </section>
+            
+            <section id="skills" class="mb-10 animate-fade-in-up stagger-5 section-float-subtle">
+                <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-4 pb-2 border-b-2 border-indigo-300">Skills</h2>
+                <div class="flex flex-wrap gap-4 items-center">
+                    <a href="https://www.google.com/search?q=Java" target="_blank" rel="noopener noreferrer" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i class="fab fa-java text-xl"></i><span>Java</span></a>
+                    <a href="https://www.google.com/search?q=Python" target="_blank" rel="noopener noreferrer" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i class="fab fa-python text-xl"></i><span>Python</span></a>
+                    <a href="https://www.google.com/search?q=C+Programming" target="_blank" rel="noopener noreferrer" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i class="fab fa-cuttlefish text-xl"></i><span>C</span></a>
+                    <a href="https://www.google.com/search?q=JavaScript" target="_blank" rel="noopener noreferrer" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i class="fab fa-js text-xl"></i><span>JavaScript</span></a>
+                    <a href="https://www.google.com/search?q=HTML" target="_blank" rel="noopener noreferrer" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i class="fab fa-html5 text-xl"></i><span>HTML</span></a>
+                    <a href="https://www.google.com/search?q=CSS" target="_blank" rel="noopener noreferrer" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i class="fab fa-css3-alt text-xl"></i><span>CSS</span></a>
+
+                    <a href="https://www.google.com/search?q=React" target="_blank" rel="noopener noreferrer" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i class="fab fa-react text-xl"></i><span>React</span></a>
+                    <a href="https://www.google.com/search?q=Spring+Framework" target="_blank" rel="noopener noreferrer" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i class="fas fa-leaf text-xl"></i><span>Spring</span></a>
+                    <a href="https://www.google.com/search?q=Node.js" target="_blank" rel="noopener noreferrer" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i class="fab fa-node-js text-xl"></i><span>Node.js</span></a>
+                    <span onclick="handleSkillSearch('FastAPI')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="server" class="w-4 h-4"></i><span>FastAPI</span></span>
+
+                    <span onclick="handleSkillSearch('Machine Learning')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="brain-circuit" class="w-4 h-4"></i><span>Machine Learning</span></span>
+                    <span onclick="handleSkillSearch('Data Science')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="database" class="w-4 h-4"></i><span>Data Science</span></span>
+                    <span onclick="handleSkillSearch('TensorFlow')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="layers" class="w-4 h-4"></i><span>TensorFlow</span></span>
+                    <span onclick="handleSkillSearch('Scikit-learn')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="line-chart" class="w-4 h-4"></i><span>Scikit-learn</span></span>
+                    <span onclick="handleSkillSearch('Pandas')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="table" class="w-4 h-4"></i><span>Pandas</span></span>
+                    <span onclick="handleSkillSearch('NumPy')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="pie-chart" class="w-4 h-4"></i><span>NumPy</span></span>
+                    <span onclick="handleSkillSearch('Gradio')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="layout-grid" class="w-4 h-4"></i><span>Gradio</span></span>
+                    <span onclick="handleSkillSearch('Power BI')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="bar-chart-2" class="w-4 h-4"></i><span>Power BI</span></span>
+                    <span onclick="handleSkillSearch('Streamlit')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="columns" class="w-4 h-4"></i><span>Streamlit</span></span>
+                    <span onclick="handleSkillSearch('NLP')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="brain-cog" class="w-4 h-4"></i><span>NLP</span></span>
+                     <span onclick="handleSkillSearch('MySQL')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="database backup" class="w-4 h-4"></i><span>MySQL</span></span>
+                      <span onclick="handleSkillSearch('BigData')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="library-big" class="w-4 h-4"></i><span>Big Data</span></span>
+                       <span onclick="handleSkillSearch('Communication')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="megaphone" class="w-4 h-4"></i><span>Communication</span></span>
+                        <span onclick="handleSkillSearch('Business Acumen')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="split" class="w-4 h-4"></i><span>Business Acumen</span></span>
+                         <span onclick="handleSkillSearch('Team management')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="handshake" class="w-4 h-4"></i><span>Team Management</span></span>
+                         <span onclick="handleSkillSearch('Devops')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="workflow" class="w-4 h-4"></i><span>Devops</span></span>
+                         <span onclick="handleSkillSearch('Prompt Engineering')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="message-square-text" class="w-4 h-4"></i><span>Prompt Engineering</span></span>
+                    <a href="https://www.google.com/search?q=Git" target="_blank" rel="noopener noreferrer" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i class="fab fa-git-alt text-xl"></i><span>Git</span></a>
+                    <span onclick="handleSkillSearch('Version Control')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="git-branch" class="w-4 h-4"></i><span>Version Control</span></span>
+                    <span onclick="handleSkillSearch('Cloud Computing')" class="skill-tag flex items-center space-x-2 bg-purple-200 text-purple-800 px-4 py-1 rounded-full text-sm font-medium shadow-sm cursor-pointer hover:bg-purple-300 transition-colors duration-200"><i data-lucide="cloud" class="w-4 h-4"></i><span>Cloud Computing</span></span>
+                </div>
+            </section>
+            
+            <section id="leadership" class="mb-10 animate-fade-in-up stagger-6 section-float-subtle">
+                <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-4 pb-2 border-b-2 border-indigo-300">Leadership & Achievements </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <a href="https://drive.google.com/file/d/1e2zgVzpZYESD4CLZHTatYOMpNmTpxIJx/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="leadership-card-link">
+                        <div class="bg-green-50 p-4 rounded-lg shadow-sm border border-green-200 transition-all duration-300">
+                            <h3 class="font-semibold text-lg text-green-800">Internshala Student Partner (👆)</h3>
+                            <p class="text-sm text-gray-700">Actively participating as a representative and leader for Internshala's campus initiatives.</p>
+                        </div>
+                    </a>
+                    <a href="[PASTE_LEADERSHIP_DRIVE_LINK_HERE]" target="_blank" rel="noopener noreferrer" class="leadership-card-link">
+                        <div class="bg-green-50 p-4 rounded-lg shadow-sm border border-green-200 transition-all duration-300">
+                            <h3 class="font-semibold text-lg text-green-800">Advanced AI Tools Workshop Conductor</h3>
+                            <p class="text-sm text-gray-700">Conducted a highly-rated workshop focusing on the application and implementation of Advanced AI tools and techniques.</p>
+                        </div>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1-2r44K-5WS9VaQUi5kZ7f5Mq1X16B0xv/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="leadership-card-link">
+                        <div class="bg-green-50 p-4 rounded-lg shadow-sm border border-green-200 transition-all duration-300">
+                            <h3 class="font-semibold text-lg text-green-800">Frontend Web Development Workshop Conductor</h3>
+                            <p class="text-sm text-gray-700">Conducted a workshop on Frontend Web Development focusing more on javascript classifications.</p>
+                        </div>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1CQ65KV04VT4IBAXPtZZcqTibnicCFnk_/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="leadership-card-link">
+                        <div class="bg-green-50 p-4 rounded-lg shadow-sm border border-green-200 transition-all duration-300">
+                            <h3 class="font-semibold text-lg text-green-800">IEEE Member (ITSoC)</h3>
+                            <p class="text-sm text-gray-700">Active member of the IEEE Information Theory Society (ITSoC), engaging with the latest research in data compression and transmission.</p>
+                        </div>
+                    </a>
+                    <a href="https://drive.google.com/file/d/13RwE481oPP5H2IrzFnkmjnz7Mp2k3Xxf/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="leadership-card-link">
+                        <div class="bg-green-50 p-4 rounded-lg shadow-sm border border-green-200 transition-all duration-300">
+                            <h3 class="font-semibold text-lg text-green-800">IEEE Student Volunteer</h3>
+                            <p class="text-sm text-gray-700">Actively involved in organizing college technical events, including leading the "HireXperience" event during "Anveshana 2k25".</p>
+                        </div>
+                    </a>
+                </div>
+            
+            </section>
+            
+            <section id="certificates" class="mb-10 animate-fade-in-up stagger-7 section-float-subtle">
+                <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-4 pb-2 border-b-2 border-indigo-300">Certificates</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 md:grid-cols-3 gap-5">
+                    <a href="https://drive.google.com/file/d/1_cqjaeTNwpAGvrNPNHlpjhjredJdd-q4/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-indigo-50 p-4 rounded-lg shadow-sm border border-indigo-200 hover:bg-indigo-100">
+                        <h3 class="font-semibold text-indigo-800 mb-1">AWS Cloud Assessment</h3>
+                        <p class="text-sm text-gray-600 mb-2">Issued by [LearnTube.ai], completed in [08/2025].</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/AWS_Learn-tube.png" alt="Certificate 1" class="w-full h-auto object-contain max-h-50" onerror="this.onerror=null;"/>
+                        </div>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1uHFP0rblq0Qy9rxHzqeHvEMNmVZFz3wx/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-indigo-50 p-4 rounded-lg shadow-sm border border-indigo-200 hover:bg-indigo-100">
+                        <h3 class="font-semibold text-indigo-800 mb-1">Hiring Challenge</h3>
+                        <p class="text-sm text-gray-600 mb-2">Issued by [Yugma TechFest 1.0], completed in [08/2025].</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/HireXperience2k25.png" alt="Certificate 2" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 2: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1WKgynU0grNYsNu3AdAnvdPcsIaauDfk1/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-indigo-50 p-4 rounded-lg shadow-sm border border-indigo-200 hover:bg-indigo-100">
+                        <h3 class="font-semibold text-indigo-800 mb-1">Ideathon</h3>
+                        <p class="text-sm text-gray-600 mb-2">Issued by [Yugma TechFest 1.0], completed in [08/2025].</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/Ideathon_pitch-Idea( Topic _ SevaPoint).jpg" alt="Certificate 3" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 2: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1VJ_Lt7UCSGQzTcipX7shz9RRcL1A2Kl4/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-indigo-50 p-4 rounded-lg shadow-sm border border-indigo-200 hover:bg-indigo-100">
+                        <h3 class="font-semibold text-indigo-800 mb-1">HireXperience-Anveshana Event Coordinator</h3>
+                        <p class="text-sm text-gray-600 mb-2">Issued by [IEEE JNNCE Student branch & IEEE Mangalore Subsection], completed in [08/2025].</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/complete journey.png" alt="Certificate 3" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 2: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1f3QXtLX3UKW_9jnOUo0g1SWebDR97lXW/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-indigo-50 p-4 rounded-lg shadow-sm border border-indigo-200 hover:bg-indigo-100">
+                        <h3 class="font-semibold text-indigo-800 mb-1">Codsoft Completion</h3>
+                        <p class="text-sm text-gray-600 mb-2">Issued by [Codsoft], completed in [09/2025].</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/Codsoft.png" alt="Certificate 3" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 2: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+
+                     <a href="https://drive.google.com/file/d/1iyM8muwkJHKeNxnGO3snLqYInWvzyd5U/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-indigo-50 p-4 rounded-lg shadow-sm border border-indigo-200 hover:bg-indigo-100">
+                        <h3 class="font-semibold text-indigo-800 mb-1">NXT wave Workshop</h3>
+                        <p class="text-sm text-gray-600 mb-2">Issued by [NXT wave], completed in [02/2025].</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/Nxt Wave.png" alt="Certificate 3" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 2: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section id="hackathons" class="mb-10 animate-fade-in-up stagger-8 section-float-subtle">
+                <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-4 pb-2 border-b-2 border-indigo-300">Hackathons</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 md:grid-cols-3 gap-6">
+                    <a href="https://drive.google.com/file/d/1BbbO6Z4KB3ypBDri22Kqjd7Y5j27hcSG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-purple-50 p-4 rounded-lg shadow-sm border border-purple-200 hover:bg-purple-100">
+                        <h3 class="font-semibold text-purple-800 mb-1">Ctrl+Alt+Compete-- RV College Bangalore</h3>
+                        <p class="text-sm text-gray-600 mb-2">An Hackathon event under IEEE Bangalore subsection  on [06/2025].</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/hackothan.png" alt="Hackathon Certificate 1" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 3: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1uLtynOBZniyQeNcXVVeGP18QhtfPqWsF/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-purple-50 p-4 rounded-lg shadow-sm border border-purple-200 hover:bg-purple-100">
+                        <h3 class="font-semibold text-purple-800 mb-1">HackYugma- A 24 hour State level Hackathon</h3>
+                        <p class="text-sm text-gray-600 mb-2">HackYugma hackathon event under Yugma Techfest 1.0 on [08/2025].</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/HackYugma.png" alt="Hackathon Certificate 2" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 4: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1d0x8fU1HfClMXUC5NMSB-Z3fl8P7bzoc/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-purple-50 p-4 rounded-lg shadow-sm border border-purple-200 hover:bg-purple-100">
+                        <h3 class="font-semibold text-purple-800 mb-1">MONAITHON - A national level 2 day hackathon</h3>
+                        <p class="text-sm text-gray-600 mb-2">An Advanced AI hackathon under AIML department [09/2025].</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/MONAIthon.jpg" alt="Hackathon Certificate 2" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 4: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                    <a href="https://sih.gov.in/sih2025PS" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-purple-50 p-4 rounded-lg shadow-sm border border-purple-200 hover:bg-purple-100">
+                        <h3 class="font-semibold text-purple-800 mb-1">SIH - Smart India Hackathon</h3>
+                        <p class="text-sm text-gray-600 mb-2">Won in Internal hackathon and selected for National Level [09/2025].</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/sih3.jpg" alt="Hackathon Certificate 2" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 4: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section id="internships" class="mb-10 animate-fade-in-up stagger-9 section-float-subtle">
+                <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-4 pb-2 border-b-2 border-indigo-300">Internships</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 md:grid-cols-3 gap-6">
+                    <a href="https://drive.google.com/file/d/1XYLYbTAa4v878eS3_8gEYL0qn35swqcI/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-yellow-50 p-4 rounded-lg shadow-sm border border-yellow-200 hover:bg-yellow-100">
+                        <h3 class="font-semibold text-yellow-800 mb-1">Java Programming / Codsoft</h3>
+                        <p class="text-sm text-gray-600 mb-2">Student Intern at Virtual Java Internship.</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/Codsoft_intern.png" alt="Internship Certificate 1" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 5: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1JUOrhvln0zcJHqrsmOAQPx4zm0dOvOlS/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-yellow-50 p-4 rounded-lg shadow-sm border border-yellow-200 hover:bg-yellow-100">
+                        <h3 class="font-semibold text-yellow-800 mb-1">Artificial Intelligence & Machine Learning / Elevate </h3>
+                        <p class="text-sm text-gray-600 mb-2">Student Intern at Virtual AIML Internship [present]</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/Elevate_AIML(intern).jpg" alt="Internship Certificate 2" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 6: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1ewfrenLfciiqOb9HhJuohCZSLOhg2QX8/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-yellow-50 p-4 rounded-lg shadow-sm border border-yellow-200 hover:bg-yellow-100">
+                        <h3 class="font-semibold text-yellow-800 mb-1">Web Development / Elevate</h3>
+                        <p class="text-sm text-gray-600 mb-2">Student Intern at Virtual web-development Internship [present].</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/Elevate_Web(Intern).jpg" alt="Internship Certificate 3" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 6: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1CDd4DX9UA9z8YR5TPMpGuZRNeULdNhOf/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-yellow-50 p-4 rounded-lg shadow-sm border border-yellow-200 hover:bg-yellow-100">
+                        <h3 class="font-semibold text-yellow-800 mb-1">Python Development / CodexIntern</h3>
+                        <p class="text-sm text-gray-600 mb-2">Student Intern at Virtual python-development Internship [present].</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/codex_pythonIntern.png" alt="Internship Certificate 4" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 6: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1_ogZbantQ7zTxiWl3n3MG4favJU1MwN6/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-yellow-50 p-4 rounded-lg shadow-sm border border-yellow-200 hover:bg-yellow-100">
+                        <h3 class="font-semibold text-yellow-800 mb-1">Front End Development / CodexIntern</h3>
+                        <p class="text-sm text-gray-600 mb-2">Student Intern at Virtual front-end-development Internship [present].</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/codex_frontendIntern.png" alt="Internship Certificate 5" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 6: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                     <a href="https://drive.google.com/file/d/1vLvuII2fI68PlIovC0CmTRGmfvrwmRJW/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-yellow-50 p-4 rounded-lg shadow-sm border border-yellow-200 hover:bg-yellow-100">
+                        <h3 class="font-semibold text-yellow-800 mb-1">Web Development / Octanet</h3>
+                        <p class="text-sm text-gray-600 mb-2">Student Intern at Virtual web-development at TechOctanet Service Pvt Ltd.</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/OctaNet.png" alt="Internship Certificate 5" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 6: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                     <a href="https://drive.google.com/file/d/1QTrGgTBHXLnzPZYgXNCoiow4GumVEKzN/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="cert-card-link bg-yellow-50 p-4 rounded-lg shadow-sm border border-yellow-200 hover:bg-yellow-100">
+                        <h3 class="font-semibold text-yellow-800 mb-1">Data Visualization / Forage TATA</h3>
+                        <p class="text-sm text-gray-600 mb-2">Data Visualization intern : Empowering Business with Effective Insights.</p>
+                        <div class="image-frame p-2">
+                            <img src="Works/forage.png" alt="Internship Certificate 5" class="w-full h-auto object-contain max-h-40" onerror="this.onerror=null; this.outerHTML='<p>Frame 6: Paste image URL here.</p>';"/>
+                        </div>
+                    </a>
+                </div>
+
+            </section>
+
+
+            <section id="projects" class="mb-10 animate-fade-in-up stagger-10 section-float-subtle">
+                <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-4 pb-2 border-b-2 border-indigo-300">Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="project-card bg-white p-6 rounded-lg shadow-md border border-gray-200 animate-slide-in-left stagger-1" data-skills="machine-learning,xgboost,random-forest,svm,python,data-cleaning">
+                        <h3 class="font-bold text-xl text-indigo-800 mb-2">🗑️Smart Waste Management System🚮</h3>
+                        <p class="text-gray-700 mb-3">Developed a machine learning-based system for waste classification. Utilized data cleaning techniques and compared XGBoost, Random Forest, and SVM algorithms to achieve optimal performance for smart waste management.</p>
+                        <div class="flex flex-wrap gap-2 mb-4"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Machine Learning</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">XGBoost</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Random Forest</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">SVM</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Python</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Data Cleaning</span></div>
+                        <a href="https://github.com/Manjunathvpoojari/Smart-waste-Classification" target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Project</a>
+                    </div>
+                    
+                    <div class="project-card bg-white p-6 rounded-lg shadow-md border border-gray-200 animate-slide-in-right stagger-2" data-skills="machine-learning,folium,streamlit,python,data-visualization">
+                        <h3 class="font-bold text-xl text-indigo-800 mb-2">🌊Bangalore Flood Detection Dashboard</h3>
+                        <p class="text-gray-700 mb-3">A hackathon project focused on detecting flood risks in Bangalore. Incorporated machine learning models, Folium for interactive mapping, and Streamlit for dashboard visualization to provide insights into flood-prone areas.</p>
+                        <div class="flex flex-wrap gap-2 mb-4"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Machine Learning</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Folium</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Streamlit</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Python</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Data Visualization</span></div>
+                        <a href="https://github.com/Manjunathvpoojari/Bangalore-Flood-Risk-Dashboard" target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Project</a>
+                    </div>
+                    
+                    <div class="project-card bg-white p-6 rounded-lg shadow-md border border-gray-200 animate-slide-in-left stagger-3" data-skills="web-development,html,css,javascript,web-scraping">
+                        <h3 class="font-bold text-xl text-indigo-800 mb-2">🖥️Enterprise Website Auditor</h3>
+                        <p class="text-gray-700 mb-3">Developed a web-health analyzer to audit enterprise websites. This project helps in identifying and reporting various issues to ensure optimal website performance and user experience (Hackathon Project) .</p>
+                        <div class="flex flex-wrap gap-2 mb-4"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Web Development</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">HTML</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">CSS</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">JavaScript</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Web Scraping</span></div>
+                        <a href="https://github.com/Manjunathvpoojari/Team-Praudtech-86" target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Project 1</a>
+                        <a href="https://github.com/Manjunathvpoojari/web-health-analyzer" target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Project 2</a>
+                    </div>
+                    
+                    <div class="project-card bg-white p-6 rounded-lg shadow-md border border-gray-200 animate-slide-in-right stagger-4" data-skills="streamlit,google-api,nlp,python">
+                        <h3 class="font-bold text-xl text-indigo-800 mb-2">🎦YouTube Summary Generator</h3>
+                        <p class="text-gray-700 mb-3">Built using Streamlit and Google API to extract and summarize YouTube video transcripts.Helped me learn about gemini api key insertion and LLM knowledge to understand generative ai concepts</p>
+                        <div class="flex flex-wrap gap-2 mb-4"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Streamlit</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Google API</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">NLP</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Python</span></div>
+                        <a href="https://github.com/Manjunathvpoojari/YouTube-Summary-Creation" target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Project</a>
+                    </div>
+
+                     <div class="project-card bg-white p-6 rounded-lg shadow-md border border-gray-200 animate-slide-in-right stagger-4" data-skills="streamlit,google-api,nlp,python">
+                        <h3 class="font-bold text-xl text-indigo-800 mb-2">🩺DualVision AI - A unified Medical Image Segmentation System using MONAI</h3>
+                        <p class="text-gray-700 mb-3">This project was developed as part of a Hackathon Challenge focused on medical image segmentation using deep learning.The objective was to preprocess, train, and deploy segmentation models for two medical imaging datasets — BRATS 2020 (Brain Tumor Segmentation) and DRIVE (Retinal Vessel Segmentation) — while demonstrating innovation and optimization under time constraints..</p>
+                        <div class="flex flex-wrap gap-2 mb-4"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Colab & Kaggle</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">MONAI</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Streamlit</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Gradio</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Data Visualize</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Data Science</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Machine learning</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">UNet++</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">AttentionUNet</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">DeepLabV3</span></div>
+                        <a href="https://github.com/Manjunathvpoojari/MONAITHON.git" target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Project</a>
+                    </div>
+
+                    <div class="project-card bg-white p-6 rounded-lg shadow-md border border-gray-200 animate-slide-in-right stagger-4" data-skills="streamlit,google-api,nlp,python">
+                        <h3 class="font-bold text-xl text-indigo-800 mb-2">📁Internship Task works </h3>
+                        <p class="text-gray-700 mb-3">My journey towards working on Internship tasks from Codsoft (Guessing game, Student grade Calculation, ATM flow, Currency Converter, Student Management System.) to the Elevate(AIML- worked on Titanic, Housing Price, Breast Cancer, Heart Disease, Customer Segmentationm and Mall Customers dataset from Kaggle) and further all encouraged me to be more productive to my work life along with academics</p>
+                        <div class="flex flex-wrap gap-2 mb-4"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Codex</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Codsoft</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Elevate(AIML)</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Elevate(web-development)</span></div>
+                       <div class="flex flex-col space-y-3">
+                 <div class="flex flex-col space-y-2"> <a href="https://github.com/Manjunathvpoojari/Elevate_AIML.git" target="_blank" rel="noopener noreferrer" class="block w-max bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Elevate_AIML</a>
+    
+                        <a href="https://github.com/Manjunathvpoojari/Elevate_Web.git" target="_blank" rel="noopener noreferrer" class="block w-max bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Elevate_Web</a>
+    
+                         <a href="https://github.com/Manjunathvpoojari/Codsoft.git" target="_blank" rel="noopener noreferrer" class="block w-max bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Codsoft</a>
+                 </div>
+                </div>
+                    </div>
+
+
+                    <div class="project-card bg-white p-6 rounded-lg shadow-md border border-gray-200 animate-slide-in-right stagger-4" data-skills="streamlit,google-api,nlp,python">
+                        <h3 class="font-bold text-xl text-indigo-800 mb-2">🎓Melanoma Cancer Detection Using Deep Learning and Image Processing</h3>
+                        <p class="text-gray-700 mb-3">Melanoma Cancer Detection Mobile Solution (Deep Learning & MLOps). To develop a highly accurate, portable diagnostic aid capable of classifying skin lesions as benign or malignant (melanoma) directly from smartphone images, significantly improving the speed and accessibility of early detection. <b>(Currently working on it)</b>.</p>
+                        <div class="flex flex-wrap gap-2 mb-4"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Machine Learning</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Deep Learning</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Convolution Neural Network</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">EfficientNetLite</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Android App</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Image Processing</span></div>
+                        <a href="https://github.com/Manjunathvpoojari/Melanoma-Skin-cancer-Detection-using-DeepLearning-.git" target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Status</a>
+                    </div>
+
+                     <div class="project-card bg-white p-6 rounded-lg shadow-md border border-gray-200 animate-slide-in-right stagger-4" data-skills="streamlit,google-api,nlp,python">
+                        <h3 class="font-bold text-xl text-indigo-800 mb-2">💸Loan Marga- tracking loan and building trust </h3>
+                        <p class="text-gray-700 mb-3">LoanMarga! <b>(SIH Project)</b> This project is not a typical loan prediction system, but rather a robust Loan Utilization Tracking and Fraud Detection system building for the National level hackathon.. <b>(Currently working on it)</b>.</p>
+                        <div class="flex flex-wrap gap-2 mb-4"><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Machine Learning</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Deep Learning</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Convolution Neural Network</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">EfficientNetLite</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Android App</span><span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">Image Processing</span></div>
+                        <a href="https://github.com/Manjunathvpoojari/Loan-Marga.git" target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-600 text-white px-5 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300 shadow-md">View Status</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="feedback" class="mb-10 animate-fade-in-up section-float-subtle">
+                <h2 class="text-2xl sm:text-3xl font-bold text-indigo-700 mb-4 pb-2 border-b-2 border-indigo-300">Share Your Feedback</h2>
+                <form action="https://formspree.io/f/mrbagvwk" method="POST" class="space-y-4">
+                    <div><label for="name" class="block text-sm font-medium text-gray-700">Your Name</label><input type="text" name="name" id="name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all duration-200"></div>
+                    <div><label for="email" class="block text-sm font-medium text-gray-700">Your Email</label><input type="email" name="email" id="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all duration-200"></div>
+                    <div><label for="feedback" class="block text-sm font-medium text-gray-700">Your Feedback</label><textarea name="feedback" id="feedback" rows="4" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all duration-200"></textarea></div>
+                    <button type="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200 transform hover:scale-105">Submit Feedback</button>
+                </form>
+            </section>
+        </main>
+        <footer class="max-w-4xl mx-auto text-center py-6 border-t border-indigo-200 text-gray-600 text-sm">
+            <p>&copy; 2025 Manjunath V Poojari. All rights reserved.</p>
+        </footer>
+    </div>
+    <script>
+        lucide.createIcons();
+        function handleSkillSearch(s){window.open('https://www.google.com/search?q='+encodeURIComponent(s),'_blank');}
+        
+        // Intersection Observer Logic for Fade-In Animations
+        document.addEventListener('DOMContentLoaded',function(){
+            const o={threshold:0.1,rootMargin:'0px 0px -50px 0px'};
+            const obs=new IntersectionObserver(function(e){
+                e.forEach(entry=>{
+                    if(entry.isIntersecting){
+                        entry.target.style.opacity='1';
+                        entry.target.style.transform='translateY(0) translateX(0)'; 
+                    }
+                });
+            },o);
+            
+            const a=document.querySelectorAll('.animate-fade-in-up,.animate-slide-in-left,.animate-slide-in-right,.project-card');
+            a.forEach(el=>obs.observe(el));
+        });
+    </script>
+</body>
+</html>
